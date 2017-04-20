@@ -6,28 +6,26 @@ class GildedRoseItem < Item
     super(name=args[:name], sell_in=args[:sell_in], quality=args[:quality])
   end
 
-  def is?(name)
-    self.name == name
-  end
-
-  def is_not?(name)
-    !is?(name)
-  end
-
   def increase_quality
-    self.quality += 1 if self.quality < 50
-  end
-
-  def quality_limit_reached?
-    self.quality < 50
+    self.quality += 1 unless shighest_quality_reached?
   end
 
   def decrease_quality
-    self.quality -= 1 if self.quality > 0
+    self.quality -= 1 unless lowest_quality_reached?
   end
 
   def expired?
     self.sell_in < 0
+  end
+
+private
+
+  def lowest_quality_reached?
+    self.quality < 1
+  end
+
+  def highest_quality_reached?
+    self.quality == 50
   end
 
 end
