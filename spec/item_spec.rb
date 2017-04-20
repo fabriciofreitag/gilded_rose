@@ -10,26 +10,30 @@ describe 'items' do
     expect{update_quality}.to_not change{dexterity_vest.name}
   end
 
-  it 'decreases sell_in everyday' do
-    dexterity_vest.sell_in = 1
-    expect{update_quality}.to change{dexterity_vest.sell_in}.by(-1)
-  end
-
-  it 'decreases quality everyday' do
-    dexterity_vest.sell_in = 1
-    dexterity_vest.quality = 1
-    expect{update_quality}.to change{dexterity_vest.quality}.by(-1)
-  end
-
-  it 'degrades twice as fast when expired' do
-    dexterity_vest.sell_in = 0
-    dexterity_vest.quality = 2
-    expect{update_quality}.to change{dexterity_vest.quality}.by(-2)
-  end
-
   it 'doesnt negativate quality' do
     dexterity_vest.quality = 0
     expect{update_quality}.to_not change{dexterity_vest.quality}
+  end
+
+  context 'everyday' do
+    it 'decreases sell_in' do
+      dexterity_vest.sell_in = 1
+      expect{update_quality}.to change{dexterity_vest.sell_in}.by(-1)
+    end
+
+    it 'decreases quality' do
+      dexterity_vest.sell_in = 1
+      dexterity_vest.quality = 1
+      expect{update_quality}.to change{dexterity_vest.quality}.by(-1)
+    end
+  end
+
+  context 'when expired' do
+    it 'degrades twice as fast when expired' do
+      dexterity_vest.sell_in = 0
+      dexterity_vest.quality = 2
+      expect{update_quality}.to change{dexterity_vest.quality}.by(-2)
+    end
   end
 
 end
