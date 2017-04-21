@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe SubItems::AgedBrie do
+describe Items::AgedBrie do
 
-  let(:items) { [SubItems::AgedBrie.new(name: 'Aged Brie', sell_in: 2, quality: 0)] }
+  let(:items) { [Items::AgedBrie.new(name: 'Aged Brie', sell_in: 2, quality: 0)] }
   let(:aged_brie) { items[0] }
   let(:update_quality) { GildedRose.new(items).update_quality }
 

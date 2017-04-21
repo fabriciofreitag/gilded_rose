@@ -15,7 +15,7 @@ describe GildedRoseItem do
     expect{update_quality}.to_not change{dexterity_vest.quality}
   end
 
-  context 'everyday' do
+  context 'when not expired' do
     it 'decreases sell_in' do
       dexterity_vest.sell_in = 1
       expect{update_quality}.to change{dexterity_vest.sell_in}.by(-1)

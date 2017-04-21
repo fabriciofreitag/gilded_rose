@@ -1,6 +1,6 @@
 require_relative '../gilded_rose_item'
 
-module SubItems
+module Items
   class AgedBrie < GildedRoseItem
     def update_item
       decrease_sell_in

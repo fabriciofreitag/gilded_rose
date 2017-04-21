@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe SubItems::BackstagePass do
+describe Items::BackstagePass do
 
-  let(:items) {[SubItems::BackstagePass.new(name: 'Backstage passes to a TAFKAL80ETC concert',
+  let(:items) {[Items::BackstagePass.new(name: 'Backstage passes to a TAFKAL80ETC concert',
                                    sell_in: 15,
                                    quality: 20)]}
 
