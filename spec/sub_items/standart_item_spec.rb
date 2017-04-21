@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe GildedRoseItem do
+describe Items::StandartItem do
 
-  let(:items) { [GildedRoseItem.new(name: '+5 Dexterity Vest', sell_in: 10, quality: 20)] }
+  let(:items) { [Items::StandartItem.new(name: '+5 Dexterity Vest', sell_in: 10, quality: 20)] }
   let(:dexterity_vest) { items[0] }
   let(:update_quality) { GildedRose.new(items).update_quality }
 

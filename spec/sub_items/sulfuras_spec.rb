@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Items::Sulfuras do
 
-  let(:items) { [Items::Sulfuras.new(name: 'Sulfuras, Hand of Ragnaros', sell_in: 0, quality: 80)] }
+  let(:items) { [Items::Sulfuras.new(name: 'Sulfuras, Hand of Ragnaros', sell_in: 0, quality:80)] }
   let(:sulfuras) { items[0] }
   let(:update_quality) { GildedRose.new(items).update_quality() }
 

@@ -1,17 +1,14 @@
 require_relative 'item'
 
-class GildedRoseItem < Item
+module GildedRoseItem
+  extend Forwardable
+  attr_reader :item
 
-  def initialize(args)
-    super(name=args[:name], sell_in=args[:sell_in], quality=args[:quality])
+  delegate [:to_s, :name, :sell_in, :quality, :name=, :sell_in=, :quality=] => :item
+
+  def initialize(**args)
+    @item = Item.new(name=args[:name], sell_in=args[:sell_in], quality=args[:quality])
   end
-
-  def update_item
-    decrease_sell_in
-    decrease_quality_by(expired? ? 2 : 1)
-  end
-
-private
 
   def is?(name)
     self.name == name
@@ -52,5 +49,4 @@ private
   def highest_quality_reached?
     self.quality == 50
   end
-
 end

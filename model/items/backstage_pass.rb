@@ -1,7 +1,9 @@
 require_relative '../gilded_rose_item'
 
 module Items
-  class BackstagePass < GildedRoseItem
+  class BackstagePass
+    include GildedRoseItem
+
     def update_item
       decrease_sell_in
       value = -self.quality if expired?
