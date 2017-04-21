@@ -1,5 +1,4 @@
 require_relative 'item'
-require 'byebug'
 
 class GildedRoseItem < Item
 
@@ -9,20 +8,17 @@ class GildedRoseItem < Item
 
   def update_item
     return if is? 'Sulfuras, Hand of Ragnaros'
-
     decrease_sell_in
-
     if is? 'Backstage passes to a TAFKAL80ETC concert'
-      self.quality = 0 if expired?
-      increase_quality(1) if self.sell_in > 10
-      increase_quality(2) if self.sell_in.between?(6, 10)
-      increase_quality(3) if self.sell_in.between?(1, 5)
+      value = -self.quality if expired?
+      value = 1 if self.sell_in > 10
+      value = 2 if self.sell_in.between?(6, 10)
+      value = 3 if self.sell_in.between?(1, 5)
     else
-      quality_change = is?('Aged Brie') ? 1 : -1
-      quality_change *= 2 if expired?
-      update_quality(quality_change)
+      value = is? 'Aged Brie' ? 1 : -1
+      value *= 2 if expired?
     end
-
+    change_quality_by(value)
   end
 
 private
@@ -31,16 +27,24 @@ private
     self.name == name
   end
 
-  def update_quality(amount)
-    amount < 1 ? decrease_quality(amount.abs) : increase_quality(amount.abs)
+  def change_quality_by(amount)
+    amount < 1 ? decrease_quality_by(amount.abs) : increase_quality_by(amount.abs)
   end
 
-  def increase_quality(amount)
-    amount.times { self.quality += 1 unless highest_quality_reached? }
+  def increase_quality_by(amount)
+    amount.times { increase_quality unless highest_quality_reached? }
   end
 
-  def decrease_quality(amount)
-    amount.times { self.quality -= 1 unless lowest_quality_reached? }
+  def decrease_quality_by(amount)
+    amount.times { decrease_quality unless lowest_quality_reached? }
+  end
+
+  def increase_quality
+    self.quality += 1
+  end
+
+  def decrease_quality
+    self.quality -= 1
   end
 
   def decrease_sell_in
