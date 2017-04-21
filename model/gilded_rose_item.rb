@@ -7,18 +7,8 @@ class GildedRoseItem < Item
   end
 
   def update_item
-    return if is? 'Sulfuras, Hand of Ragnaros'
     decrease_sell_in
-    if is? 'Backstage passes to a TAFKAL80ETC concert'
-      value = -self.quality if expired?
-      value = 1 if self.sell_in > 10
-      value = 2 if self.sell_in.between?(6, 10)
-      value = 3 if self.sell_in.between?(1, 5)
-    else
-      value = is? 'Aged Brie' ? 1 : -1
-      value *= 2 if expired?
-    end
-    change_quality_by(value)
+    decrease_quality_by(expired? ? 2 : 1)
   end
 
 private
@@ -56,7 +46,7 @@ private
   end
 
   def lowest_quality_reached?
-    self.quality < 1
+    self.quality == 0
   end
 
   def highest_quality_reached?

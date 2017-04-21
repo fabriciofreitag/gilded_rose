@@ -1,4 +1,4 @@
-require_relative 'gilded_rose_item'
+require_relative 'model/gilded_rose_item'
 
 class GildedRose
 

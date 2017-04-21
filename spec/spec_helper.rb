@@ -1,4 +1,7 @@
-require_relative '../model/gilded_rose'
+Dir['model/sub_items/*.rb'].each do |file|
+  require_relative '../' + file
+end
+require_relative '../gilded_rose'
 require 'simplecov'
 SimpleCov.start
 
