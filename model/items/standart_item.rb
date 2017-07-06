@@ -6,7 +6,7 @@ module Items
 
     def update_item
       decrease_sell_in
-      decrease_quality_by(expired? ? 2 : 1)
+      change_quality_by(expired? ? -2 : -1)
     end
   end
 end

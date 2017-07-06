@@ -4,6 +4,9 @@ module GildedRoseItem
   extend Forwardable
   attr_reader :item
 
+  HIGHEST_POSSIBLE_QUALITY = 50
+  LOWEST_POSSIBLE_QUALITY = 0
+
   delegate [:to_s, :name, :sell_in, :quality, :name=, :sell_in=, :quality=] => :item
 
   def initialize(**args)
@@ -15,23 +18,9 @@ module GildedRoseItem
   end
 
   def change_quality_by(amount)
-    amount < 1 ? decrease_quality_by(amount.abs) : increase_quality_by(amount.abs)
-  end
-
-  def increase_quality_by(amount)
-    amount.times { increase_quality unless highest_quality_reached? }
-  end
-
-  def decrease_quality_by(amount)
-    amount.times { decrease_quality unless lowest_quality_reached? }
-  end
-
-  def increase_quality
-    self.quality += 1
-  end
-
-  def decrease_quality
-    self.quality -= 1
+    self.quality += amount
+    self.quality = HIGHEST_POSSIBLE_QUALITY if self.quality > HIGHEST_POSSIBLE_QUALITY
+    self.quality = LOWEST_POSSIBLE_QUALITY if self.quality < LOWEST_POSSIBLE_QUALITY
   end
 
   def decrease_sell_in
@@ -42,11 +31,4 @@ module GildedRoseItem
     self.sell_in < 1
   end
 
-  def lowest_quality_reached?
-    self.quality == 0
-  end
-
-  def highest_quality_reached?
-    self.quality == 50
-  end
 end
